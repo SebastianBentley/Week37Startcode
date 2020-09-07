@@ -1,0 +1,102 @@
+package facades;
+
+import dto.MovieDTO;
+import entities.Movie;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+/**
+ *
+ * Rename Class to a relevant name Add add relevant facade methods
+ */
+public class MovieFacade {
+
+    private static MovieFacade instance;
+    private static EntityManagerFactory emf;
+    
+    //Private Constructor to ensure Singleton
+    private MovieFacade() {}
+    
+    
+    /**
+     * 
+     * @param _emf
+     * @return an instance of this facade class.
+     */
+    public static MovieFacade getFacadeExample(EntityManagerFactory _emf) {
+        if (instance == null) {
+            emf = _emf;
+            instance = new MovieFacade();
+        }
+        return instance;
+    }
+
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+    
+    
+    
+    public Movie getMovieByTitle(String title){
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Movie.getByName", Movie.class);
+            query.setParameter("title", title);
+            Movie mv = (Movie) query.getSingleResult();
+            return mv;
+        } catch(javax.persistence.NoResultException e) {
+            String[] error = {""};
+            return new Movie(0, "Title Not Found", error);
+        }
+        
+        finally {
+            em.close();
+        }
+    }
+    
+    public List<Movie> getAllMovies(){
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Movie> query = em.createNamedQuery("Movie.getAll", Movie.class);
+            List<Movie> mvs = query.getResultList();
+            return mvs;
+            
+        } finally {
+            em.close();
+        }
+    }
+    
+    
+    public Movie addMovie(Movie mv){
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(mv);
+            em.getTransaction().commit();
+            return mv;
+        } finally {
+            em.close();
+        }
+        
+    }
+    
+    
+    
+    //TODO Remove/Change this before use
+    public long getMovieCount(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Movie r").getSingleResult();
+            return renameMeCount;
+        }finally{  
+            em.close();
+        }
+        
+    }
+
+}
