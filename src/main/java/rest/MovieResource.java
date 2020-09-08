@@ -53,9 +53,12 @@ public class MovieResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getMovieByTitle(@PathParam("title") String title){
-        Movie mv = FACADE.getMovieByTitle(title);
-        MovieDTO dto = new MovieDTO(mv);
-        return GSON.toJson(dto);
+        List<Movie> mv = FACADE.getMovieByTitle(title);
+        List<MovieDTO> movies = new ArrayList<>();
+        for (Movie mov : mv) {
+            movies.add(new MovieDTO(mov));
+        }
+        return GSON.toJson(movies);
     }
     
     @Path("id/{id}")

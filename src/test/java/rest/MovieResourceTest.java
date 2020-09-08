@@ -143,7 +143,7 @@ public class MovieResourceTest {
         .get("/Movie/title/Goodfellas").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("title", equalTo(r2.getTitle()));
+        .body("[0].id", equalTo(r2.getId().intValue()));
         
     }
     
@@ -154,7 +154,7 @@ public class MovieResourceTest {
         .get("/Movie/title/Spiderman").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("title", is(not(equalTo(r2.getTitle()))));
+        .body("[0].id", is(not(equalTo(r2.getId().intValue()))));
         
     }
     
@@ -163,11 +163,10 @@ public class MovieResourceTest {
     public void testFindById(){
         given()
         .contentType("application/json")
-        .get("/Movie/title/Goodfellas").then()
+        .get("/Movie/id/" + r2.getId()).then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("id", equalTo(r2.getId().intValue()));
-        
+        .body("title", equalTo(r2.getTitle()));
     }
     
     

@@ -40,16 +40,19 @@ public class MovieFacade {
         return emf.createEntityManager();
     }
 
-    public Movie getMovieByTitle(String title) {
+    public List<Movie> getMovieByTitle(String title) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Movie.getByName", Movie.class);
             query.setParameter("title", title);
-            Movie mv = (Movie) query.getSingleResult();
+            List<Movie> mv = query.getResultList();
             return mv;
         } catch (javax.persistence.NoResultException e) {
             String[] error = {""};
-            return new Movie(0, "Title Not Found", error);
+            List<Movie> mvfail = new ArrayList<>();
+            Movie m = new Movie(0, "Title Not Found", error);
+            mvfail.add(m);
+            return mvfail;
         } finally {
             em.close();
         }

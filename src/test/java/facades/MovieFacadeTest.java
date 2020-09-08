@@ -66,8 +66,8 @@ public class MovieFacadeTest {
     @Test
     public void testGetMovieByTitle(){
         String expectedTitle = "aaa";
-        Movie mv = facade.getMovieByTitle("aaa");
-        String actualTitle = mv.getTitle();
+        List<Movie> mv = facade.getMovieByTitle("aaa");
+        String actualTitle = mv.get(0).getTitle();
         assertEquals(expectedTitle, actualTitle);
     }
     
