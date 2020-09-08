@@ -16,6 +16,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -132,6 +134,40 @@ public class MovieResourceTest {
         .body("size()", is(3))
         .and()
         .body("title",hasItems("Pulp Fiction", "Goodfellas", "Venom"));
+    }
+    
+    @Test
+    public void testFindByTitle(){
+        given()
+        .contentType("application/json")
+        .get("/Movie/title/Goodfellas").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("title", equalTo(r2.getTitle()));
+        
+    }
+    
+    @Test
+    public void testFindByTitleNotFound(){
+        given()
+        .contentType("application/json")
+        .get("/Movie/title/Spiderman").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("title", is(not(equalTo(r2.getTitle()))));
+        
+    }
+    
+    
+    @Test
+    public void testFindById(){
+        given()
+        .contentType("application/json")
+        .get("/Movie/title/Goodfellas").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("id", equalTo(r2.getId().intValue()));
+        
     }
     
     

@@ -58,6 +58,15 @@ public class MovieResource {
         return GSON.toJson(dto);
     }
     
+    @Path("id/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getMovieById(@PathParam("id") Long id){
+        Movie mv = FACADE.getMovieById(id);
+        return GSON.toJson(mv);
+    }
+    
+    
     @Path("count")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -66,4 +75,14 @@ public class MovieResource {
         //System.out.println("--------------->"+count);
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
+    
+    @Path("insertMovies")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String insertMoviesToDB(){
+        FACADE.insertMoviesToDB();
+        return "{\"msg\":\"4 rows added\"}";
+    }
+    
+    
 }

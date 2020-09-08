@@ -7,16 +7,26 @@ public class MovieDTO {
     private String title;
     private int year;
     private String[] actors;
+    private Long id;
 
     public MovieDTO(Movie mv) {
         this.title = mv.getTitle();
         this.year = mv.getYear();
         this.actors = mv.getActors();
+        this.id = mv.getId();
     }
 
     public MovieDTO() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getTitle() {
         return title;
     }
