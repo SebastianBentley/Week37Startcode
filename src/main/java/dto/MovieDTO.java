@@ -4,12 +4,12 @@ import entities.Movie;
 
 
 public class MovieDTO {
-    private String Title;
+    private String title;
     private int year;
     private String[] actors;
 
     public MovieDTO(Movie mv) {
-        this.Title = mv.getTitle();
+        this.title = mv.getTitle();
         this.year = mv.getYear();
         this.actors = mv.getActors();
     }
@@ -18,11 +18,11 @@ public class MovieDTO {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String Title) {
-        this.Title = Title;
+        this.title = Title;
     }
 
     public int getYear() {

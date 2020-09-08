@@ -14,6 +14,8 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +27,7 @@ public class MovieResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static Movie r1,r2;
+    private static Movie r1,r2,r3;
     
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -62,14 +64,15 @@ public class MovieResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        String[] actors = {"mr. Mgcee"};
-        r1 = new Movie(2003, "Some txt", actors);
-        r2 = new Movie(2004, "aaa", actors);
+        r1 = new Movie(1994, "Pulp Fiction", new String[]{"Uma Thurman", "John Travolta", "Samuel L. Jackson"});
+        r2 = new Movie(1990, "Goodfellas", new String[]{"Ray Liotta", "Robert De Niro"});
+        r3 = new Movie(2018, "Venom", new String[]{"Tom Hardy", "Michelle Williams"});
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(r1);
-            em.persist(r2); 
+            em.persist(r2);
+            em.persist(r3);
             em.getTransaction().commit();
         } finally { 
             em.close();
@@ -79,8 +82,23 @@ public class MovieResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/Movie").then().statusCode(200);
+        given()
+        .when()
+        .get("/Movie").then()
+        .statusCode(200);
     }
+    
+    @Test
+    public void testServerIsUpTwo() {
+        System.out.println("Testing is server UP");
+        given()
+        .when()
+        .get("/Movie").then()
+        .statusCode(HttpStatus.OK_200.getStatusCode());
+    }
+    
+    
+    
    
     //This test assumes the database contains two rows
     @Test
@@ -100,6 +118,22 @@ public class MovieResourceTest {
         .get("/Movie/count").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("count", equalTo(2));   
+        .body("count", equalTo(3));   
     }
+    
+    
+    @Test
+    public void testGetAllMovies() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/Movie/all").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("size()", is(3))
+        .and()
+        .body("title",hasItems("Pulp Fiction", "Goodfellas", "Venom"));
+    }
+    
+    
+    
 }

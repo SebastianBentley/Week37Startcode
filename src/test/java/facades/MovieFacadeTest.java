@@ -43,9 +43,8 @@ public class MovieFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            String[] actors = {"Mr. Mgcee"};
-            em.persist(new Movie(2000, "Some txt", actors));
-            em.persist(new Movie(2001, "aaa", actors));
+            em.persist(new Movie(2000, "Some txt", new String[]{"Test1", "Test2"}));
+            em.persist(new Movie(2001, "aaa", new String[]{"Test1", "Test2"}));
 
             em.getTransaction().commit();
         } finally {
