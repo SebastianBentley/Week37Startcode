@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="1">TODO write content</div>
+        <div id="2">TODO write content</div>
+        <div id="3">TODO write content</div>
+        <button type="button" id="btn">Change Color!</button>
+        <script>
+            var divs = document.getElementsByTagName("div");
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].style.backgroundColor="red";
+            }
+            
+            function changeColor(e){
+                e.preventDefault();
+                document.getElementById("1").style.backgroundColor="lightblue";
+                document.getElementById("2").style.backgroundColor="green";
+                document.getElementById("3").style.backgroundColor="yellow";
+            }
+            
+            document.getElementById("btn").addEventListener("click", changeColor, false);
+        </script>
+    </body>
+</html>

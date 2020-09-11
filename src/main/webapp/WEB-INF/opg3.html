@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <p id="names"></p>
+
+        <form style="display: inline-flex;">
+            <input type="text" id="name"><br>
+            <input id="addName" style="margin-left: 5px" type="submit" value="Add name">
+            <input id="removeFirst" style="margin-left: 5px" type="submit" value="Remove first name">
+            <input id="removeLast" style="margin-left: 5px" type="submit" value="Remove last name">
+        </form> 
+
+        <script>
+            var allNames = ["Lars", "Jan", "Peter", "Bo", "Frederik", "Henrik", "Steve"];
+            function toHtml(a) {
+                return "<ul>" + a.map(n => "<li>" + n + "</li>").join("") + "</ul>";
+            }
+            ;
+            function showAllNames() {
+                document.getElementById("names").innerHTML = toHtml(allNames);
+            }
+
+            //Add a name to the array, if the input is not an empty string
+            document.getElementById("addName").addEventListener("click", function (e) {
+                e.preventDefault();
+                let name = document.getElementById("name").value;
+                if (name !== "") {
+                    allNames.push(name);
+                    showAllNames();
+                }
+            });
+            
+            //Remove the first name of allNames
+            document.getElementById("removeFirst").addEventListener("click", function (e) {
+                e.preventDefault();
+                allNames.shift();
+                showAllNames();
+            });
+
+            //Remove the last name of allNames
+            document.getElementById("removeLast").addEventListener("click", function (e) {
+                e.preventDefault();
+                allNames.pop();
+                showAllNames();
+            });
+            showAllNames();
+        </script>
+    </body>
+</html>

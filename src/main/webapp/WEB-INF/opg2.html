@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>.mydiv {width: 25px; height: 25px;background-color:yellow; margin:1px;}
+        </style>
+    </head>
+    <body>
+        <p id="p1">Press a yellow square for a message</p>
+        <div id="outer">
+            <div class="mydiv" id="div1"></div>
+            <div class="mydiv" id="div2"></div>
+            <div class="mydiv" id="div3"></div>
+            <div class="mydiv" id="div4"></div>
+            <div class="mydiv" id="div5"></div>
+            <div class="mydiv" id="div6"></div>
+            <div class="mydiv" id="div7"></div>
+            <div class="mydiv" id="div8"></div>
+            <div class="mydiv" id="div9"></div>
+            <div class="mydiv" id="div10"></div>
+            <div class="mydiv" id="div11"></div>
+            <div class="mydiv" id="div12"></div>
+        </div>
+
+        <script>
+            function hiIinConsole(e) {
+                console.log();
+            }
+
+            document.getElementById("outer").addEventListener("click", function (e) {
+                var target = e.target;
+                document.getElementById("p1").innerHTML = "Hi from " + target.id;
+                //console.log("Hi from " + target.id); <-- previous exercise
+            });
+
+            /*document.getElementById("div1").addEventListener("click", function () {  <-- previous exercise
+             console.log("Hi from " + this.id);
+             });
+             document.getElementById("div2").addEventListener("click", function () { <-- previous exercise
+             console.log("Hi from " + this.id);
+             });*/
+        </script>
+    </body>
+</html>

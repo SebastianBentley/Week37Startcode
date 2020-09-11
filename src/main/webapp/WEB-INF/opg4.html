@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+
+
+        <div id="tbl"></div>
+
+        <div style="display: inline-flex;">
+            <input type="text" id="price"><br>
+            <button id="btn" type="submit">Price less than</button> 
+        </div>
+        <script>
+            var cars = [
+                {id: 1, year: 1997, make: 'Ford', model: 'E350', price: 3000},
+                {id: 2, year: 1999, make: 'Chevy', model: 'Venture', price: 4900},
+                {id: 3, year: 2000, make: 'Chevy', model: 'Venture', price: 5000},
+                {id: 4, year: 1996, make: 'Jeep', model: 'Grand Cherokee', price: 4799},
+                {id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799}
+            ];
+
+            //Write an array to a table
+            var toTable = function (a) {
+                return "<table class=\"table\"><thead>\n\<tr><th scope=\"col\">id</th>\n\
+                        <th scope=\"col\">Year</th>\n\
+                        <th scope=\"col\">Make</th>\n\
+                        <th scope=\"col\">Model</th>\n\
+                        <th scope=\"col\">Price</th>\n\
+                        </tr></thead>\n\
+                        <tbody>\n\
+                        <tr>" + a.map(n => "<th scope=\"row\">" + n.id + "</th>\n\
+                        <td>" + n.year + "</td>\n\
+                        <td>" + n.make + "</td>\n\
+                        <td>" + n.model + "</td>\n\
+                        <td>" + n.price + "</td>\n\
+                        </tr>") + "</tbody></table>";
+            };
+
+            //When button is pressed, filter the array, and use toTable() to update to shown table
+            document.getElementById("btn").addEventListener("click", function (e) {
+                e.preventDefault();
+                let price = document.getElementById("price").value;
+                if (price !== "") {
+                    let newCars = cars.filter(n => n.price < price);
+                    document.getElementById("tbl").innerHTML = toTable(newCars);
+                }
+            });
+
+            //Show the inital table
+            document.getElementById("tbl").innerHTML = toTable(cars);
+
+        </script>
+
+
+
+
+    </body>
+</html>
