@@ -5,8 +5,93 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     </head>
-    <body>
-        <div>Movie API</div>
+    <body style="background-color: #ECEEEF;">
+        <h1 style="text-align: center; font-size: 70px">Movie API</h1>
+
+        <div style="float: left; width: 30%;">
+            <h3>Alle Film</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titel</th>
+                        <th scope="col">År</th>
+                        <th scope="col">Medvirkende</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Kommer snart</td>
+                        <td>2020</td>
+                        <td>ingen</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <button type="button">Fetch all movies</button>
+
+            <br>
+            <br>
+            <br>
+            <h3>Søg på id</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titel</th>
+                        <th scope="col">År</th>
+                        <th scope="col">Medvirkende</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Kommer snart</td>
+                        <td>2020</td>
+                        <td>ingen</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <form style="display: inline-flex">
+                <input type="text" id="byId"><br>
+                <button type="button">Fetch by id</button>
+            </form>
+
+            <br>
+            <br>
+            <br>
+            <h3>Søg på Titel</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titel</th>
+                        <th scope="col">År</th>
+                        <th scope="col">Medvirkende</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Kommer snart</td>
+                        <td>2020</td>
+                        <td>ingen</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <form style="display: inline-flex">
+                <input type="text" id="byTitle"><br>
+                <button type="button">Fetch by Title</button>
+            </form>
+
+        </div>
+
+
+
     </body>
 </html>
