@@ -66,7 +66,7 @@
 
             function fetchMovieById(id) {
                 id = document.getElementById("idMovieText").value;
-                let url = "https://sebsen.dk/devops-starter/api/Movie/id/" + id;
+                let url = "https://sebsen.dk/devops-starter/api/Movie/id/" + String.valueOf(id);
                 fetch(url)
                         .then(res => res.json()) //in flow1, just do it
                         .then(data => {
