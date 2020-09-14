@@ -72,7 +72,10 @@
                         .then(data => {
                             let idMovie = document.getElementById("idMovie");
                             let result = "";
-                            data.forEach(n => result += getTableRow(n));
+                            console.log(data);
+                            data.forEach((x) => {
+                                result += getTableRow(x)
+                            });
                             idMovie.innerHTML = `<table class="table">${getTableHeader()}${result}</tbody></table>`;
                             document.getElementById("allMovies").innerHTML = "";
                             document.getElementById("titleMovie").innerHTML = "";
