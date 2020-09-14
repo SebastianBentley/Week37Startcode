@@ -12,98 +12,94 @@
 
         <div style="float: left; width: 30%;">
             <h3>Alle Film</h3>
-            
+
             <p id="allMovies"></p>
-            
+
             <button id="allMoviesBtn" type="button">Fetch all movies</button>
 
             <br>
             <br>
             <br>
             <h3>Søg på id</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Titel</th>
-                        <th scope="col">År</th>
-                        <th scope="col">Medvirkende</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Kommer snart</td>
-                        <td>2020</td>
-                        <td>ingen</td>
-                    </tr>
-                </tbody>
-            </table>
+            <p id="idMovie"></p>
             <form style="display: inline-flex">
-                <input type="text" id="byId"><br>
-                <button type="button">Fetch by id</button>
+                <input type="text" id="idMovieText"><br>
+                <button id="idMovieBtn" type="button">Fetch by id</button>
             </form>
 
             <br>
             <br>
             <br>
             <h3>Søg på Titel</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Titel</th>
-                        <th scope="col">År</th>
-                        <th scope="col">Medvirkende</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Kommer snart</td>
-                        <td>2020</td>
-                        <td>ingen</td>
-                    </tr>
-
-                </tbody>
-            </table>
+            <p id="titleMovie"></p>
             <form style="display: inline-flex">
-                <input type="text" id="byTitle"><br>
-                <button type="button">Fetch by Title</button>
+                <input type="text" id="titleMovieText"><br>
+                <button id="titleMovieBtn" type="button">Fetch by Title</button>
             </form>
 
         </div>
 
         <script>
+            function getTableHeader() {
+                return "<thead><tr><th scope=\"col\">Id</th><th scope=\"col\">Titel</th><th scope=\"col\">År</th><th scope=\"col\">Medvirkende</th></tr></thead><tbody>";
+            }
 
-
+            function getTableRow(movObj) {
+                return `<tr><th scope="row">${movObj.id}</th><td>${movObj.title}</td><td>${movObj.year}</td><td>${movObj.actors}</td></tr>`;
+            }
+            
             function fetchAllMovies() {
                 let url = "https://sebsen.dk/devops-starter/api/Movie/all";
                 fetch(url)
                         .then(res => res.json()) //in flow1, just do it
                         .then(data => {
-                            // Inside this callback, and only here, the response data is available
-                            console.log("data", data);
-                            /* data now contains the response, converted to JavaScript
-                             Observe the output from the log-output above
-                             Now, just build your DOM changes using the data*/
                             let allMovies = document.getElementById("allMovies");
                             let result = "";
-                            data.forEach((x) => {result += getTableRow(x)});
-                            allMovies.innerHTML = `<table>${getTableHeader()}${result}</table>`;
+                            data.forEach((x) => {
+                                result += getTableRow(x)
+                            });
+                            allMovies.innerHTML = `<table class="table">${getTableHeader()}${result}</tbody></table>`;
                         });
             }
 
-            function getTableHeader(){
-                return "<thead><tr><th scope=\"col\">Id</th><th scope=\"col\">Titel</th><th scope=\"col\">År</th><th scope=\"col\">Medvirkende</th></tr></thead>";
+            function fetchMovieById(id){
+                let url = "https://sebsen.dk/devops-starter/api/Movie/id/" + id;
+                fetch(url)
+                        .then(res => res.json()) //in flow1, just do it
+                        .then(data => {
+                            
+                            let idMovie = document.getElementById("idMovie");
+                            let result = "";
+                            data.forEach((x) => {
+                                result += getTableRow(x)
+                            });
+                            idMovie.innerHTML = `<table class="table">${getTableHeader()}${result}</tbody></table>`;
+                        });
             }
             
-            function getTableRow(movObj){
-                return `<tr><th scope="row">${movObj.id}</th><td>${movObj.title}</td><td>${movObj.year}</td><td>${movObj.actors}</td></tr>`;
+            function fetchMovieByTitle(title){
+                let url = "https://sebsen.dk/devops-starter/api/Movie/title/" + title;
+                fetch(url)
+                        .then(res => res.json()) //in flow1, just do it
+                        .then(data => {
+                            let idMovie = document.getElementById("titleMovie");
+                            let result = "";
+                            data.forEach((x) => {
+                                result += getTableRow(x)
+                            });
+                            idMovie.innerHTML = `<table class="table">${getTableHeader()}${result}</tbody></table>`;
+                        });
             }
-            
+
+
             document.getElementById("allMoviesBtn").addEventListener("click", fetchAllMovies());
+
+            movieId = document.getElementById("idMovieText").value;
+            document.getElementById("idMovieBtn").addEventListener("click", fetchMovieById(movieId));
             
+            movieTitle = document.getElementById("titleMovieText").value;
+            document.getElementById("titleMovieBtn").addEventListener("click", fetchMovieByTitle(movieTitle));
+
 
 
 
