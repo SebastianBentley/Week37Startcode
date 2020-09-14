@@ -65,9 +65,10 @@
             }
 
             function fetchMovieById() {
-                let id = document.getElementById("idMovieText").value;
-                let url = "https://sebsen.dk/devops-starter/api/Movie/id/" + id;
-                fetch(url)
+            let id = document.getElementById("idMovieText").value;
+                    
+                    let url = "https://sebsen.dk/devops-starter/api/Movie/id/" + id;
+                    fetch(url)
                         .then(res => res.json()) //in flow1, just do it
                         .then(data => {
                             let idMovie = document.getElementById("idMovie");
@@ -81,7 +82,7 @@
                         });
             }
 
-            function fetchMovieByTitle(title) {
+           function fetchMovieByTitle(title) {
                 title = document.getElementById("titleMovieText").value;
                 let url = "https://sebsen.dk/devops-starter/api/Movie/title/" + title;
                 fetch(url)
@@ -99,11 +100,11 @@
             }
 
 
-            document.getElementById("allMoviesBtn").addEventListener("click", fetchAllMovies());
+            document.getElementById("allMoviesBtn").addEventListener("click", fetchAllMovies);
             
-            document.getElementById("idMovieBtn").addEventListener("click", fetchMovieById(movieId));
+            document.getElementById("idMovieBtn").addEventListener("click", fetchMovieById);
 
-            document.getElementById("titleMovieBtn").addEventListener("click", fetchMovieByTitle(movieTitle));
+            document.getElementById("titleMovieBtn").addEventListener("click", fetchMovieByTitle);
         </script>
 
 
