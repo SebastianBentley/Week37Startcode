@@ -12,26 +12,10 @@
 
         <div style="float: left; width: 30%;">
             <h3>Alle Film</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Titel</th>
-                        <th scope="col">År</th>
-                        <th scope="col">Medvirkende</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Kommer snart</td>
-                        <td>2020</td>
-                        <td>ingen</td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <button type="button">Fetch all movies</button>
+            
+            <p id="allMovies"></p>
+            
+            <button id="allMoviesBtn" type="button">Fetch all movies</button>
 
             <br>
             <br>
@@ -53,7 +37,6 @@
                         <td>2020</td>
                         <td>ingen</td>
                     </tr>
-
                 </tbody>
             </table>
             <form style="display: inline-flex">
@@ -92,18 +75,36 @@
         </div>
 
         <script>
-            let url = "https://sebsen.dk/devops-starter/api/Movie/all";
-            fetch(url)
-                    .then(res => res.json()) //in flow1, just do it
-                    .then(data => {
-                        // Inside this callback, and only here, the response data is available
-                        console.log("data", data);
-                        /* data now contains the response, converted to JavaScript
-                         Observe the output from the log-output above
-                         Now, just build your DOM changes using the data*/
-                    });
 
-                    
+
+            function fetchAllMovies() {
+                let url = "https://sebsen.dk/devops-starter/api/Movie/all";
+                fetch(url)
+                        .then(res => res.json()) //in flow1, just do it
+                        .then(data => {
+                            // Inside this callback, and only here, the response data is available
+                            console.log("data", data);
+                            /* data now contains the response, converted to JavaScript
+                             Observe the output from the log-output above
+                             Now, just build your DOM changes using the data*/
+                            let allMovies = document.getElementById("allMovies");
+                            let result = "";
+                            data.forEach((x) => {result += getTableRow(x)});
+                            allMovies.innerHTML = `<table>${getTableHeader()}${result}</table>`;
+                        });
+            }
+
+            function getTableHeader(){
+                return "<thead><tr><th scope=\"col\">Id</th><th scope=\"col\">Titel</th><th scope=\"col\">År</th><th scope=\"col\">Medvirkende</th></tr></thead>";
+            }
+            
+            function getTableRow(movObj){
+                return `<tr><th scope="row">${movObj.id}</th><td>${movObj.title}</td><td>${movObj.year}</td><td>${movObj.actors}</td></tr>`;
+            }
+            
+            document.getElementById("allMoviesBtn").addEventListener("click", fetchAllMovies());
+            
+
 
 
 
